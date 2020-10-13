@@ -9,9 +9,6 @@ public abstract class Funcionario implements Serializable{
 	private String nome;
 	private String cpf;
 	private String telefone;
-	private Gerente gerente;
-	private Vendedor vendedor;
-	
 	
 	
 	public Long getId() {
@@ -49,21 +46,15 @@ public abstract class Funcionario implements Serializable{
 		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
 		return result;
 	}
-	public Funcionario() {
+	public Funcionario(Long id, String nome, String cpf, String telefone) {
 		super();
+		this.id = id;
+		this.nome = nome;
+		this.cpf = cpf;
+		this.telefone = telefone;
 	}
-	public Gerente getGerente() {
-		return gerente;
-	}
-	public void setGerente(Gerente gerente) {
-		this.gerente = gerente;
-	}
-	public Vendedor getVendedor() {
-		return vendedor;
-	}
-	public void setVendedor(Vendedor vendedor) {
-		this.vendedor = vendedor;
-	}
+
+	
 
 	
 	
