@@ -9,11 +9,16 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.ManyToAny;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 public class Vendedor extends Funcionario  {
@@ -22,13 +27,16 @@ public class Vendedor extends Funcionario  {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Column(nullable = false, length = 200, updatable = true)
+	@NotBlank(message = "Salário deve ser obrigatório")
 	private float salario;
+	@JsonIgnore
+	@OneToMany(mappedBy = "vendedor")
 	@JsonBackReference
-	@OneToMany(mappedBy = "venda")
-	@JoinColumn(nullable = false, name = "vendedor_id")
+	@Valid
 	private List <Venda> venda = new ArrayList<>();
-	@ManyToAny(metaColumn = @Column)
+	@ManyToOne
 	@JsonManagedReference
+	@Valid
 	private Funcionario funcionario;
 
 	public float getSalario() {

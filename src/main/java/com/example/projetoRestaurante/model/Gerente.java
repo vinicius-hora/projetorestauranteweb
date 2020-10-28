@@ -9,8 +9,16 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
+
+import com.example.projetoRestaurante.anotation.SenhaValidation;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
@@ -20,15 +28,21 @@ public class Gerente extends Funcionario{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Column(nullable = false, length = 40, unique = true)
+	@NotBlank(message = "usuário deve ser preenchido")
+	@Length(max = 20, message = "Usuário deve ter no máximo 20 caracteres")
 	private String usuario;
 	@Column(nullable = false, length = 10)
+	@SenhaValidation(messege = "A senha deve contrar números, letras maiusculas e minusculas")
+	@Length(min = 10, message = "Senha deve ter no mínimo 10 caracteres")
 	private String senha;
 	@Embedded
-	@JsonManagedReference
+	@OneToOne
+	@Valid
+	@NotNull(message = "funcionário obrigatório")
 	private Funcionario funcionario;
 	@JsonBackReference
-	@OneToMany(mappedBy = "estoque")
-	@JoinColumn(nullable = false, name = "gerente_id")
+	@OneToMany(mappedBy = "gerente")
+	@Valid
 	private List <Estoque> estoque = new ArrayList<>();
 	
 	

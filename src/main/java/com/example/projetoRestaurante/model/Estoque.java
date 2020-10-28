@@ -2,14 +2,23 @@ package com.example.projetoRestaurante.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.ManyToAny;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
@@ -42,14 +51,22 @@ public class Estoque implements Serializable{
 		return true;
 	}
 	@Column(nullable = false, length = 200)
+	@Length(max = 200, message = "deve ter no máximo 200 caractéres")
+	@NotBlank(message = "Itém é obrigatório")
 	private String item;
+	@Length(max = 50, message = "deve ter no máximo 50 caractéres")
 	private String nota_fiscal;
 	@Column(nullable = false)
+	@NotBlank(message = "Valor é obrigatório")
 	private float valor;
 	@Column(nullable = false)
+	@Temporal(TemporalType.DATE)
+	@NotNull(message = "Datade compra é obrigatório")
+	@DateTimeFormat(pattern = "yyyy-mm-dd")
 	private Date data;
-	@ManyToAny(metaColumn = @Column)
+	@ManyToOne
 	@JsonManagedReference
+	@Valid
 	private Gerente gerente;
 	
 	

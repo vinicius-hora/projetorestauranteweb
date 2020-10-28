@@ -6,15 +6,21 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonValueInstantiator;
 @Entity
 public abstract class Funcionario implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -22,16 +28,24 @@ public abstract class Funcionario implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(nullable = false, length = 100)
+	@NotBlank (message = "Nome Obrigatório")
+	@Length(max = 100)
 	private String nome;
 	@Column(nullable = false, length = 14, unique = true, updatable = false)
+	@CPF(message = "CPF inválido")
 	private String cpf;
 	@Column(nullable = false, length = 14)
+	@NotBlank (message = "Telefone Obrigatório")
+	@Length(min=13, max=14, message = "Telefone de ser (99)9999-9999 ou (99)99999-9999")
 	private String telefone;
 	@ElementCollection(fetch = FetchType.EAGER)
-	@OneToMany(mappedBy = "vendedor")
-	@JsonBackReference
+	@OneToMany
+	@JsonIgnore
+	@Valid
 	private List<Vendedor> vendedor = new ArrayList<>();
-	@JsonBackReference
+	@JsonIgnore
+	@OneToOne (mappedBy = "funcionario")
+	@Valid
 	private Gerente gerente;
 	
 	
