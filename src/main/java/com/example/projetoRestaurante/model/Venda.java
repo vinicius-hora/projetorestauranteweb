@@ -1,6 +1,7 @@
 package com.example.projetoRestaurante.model;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -26,8 +27,12 @@ import javax.persistence.Entity;
 public class Venda implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
+	@Column(name = "id_venda")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	public Venda() {
+		super();
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -56,13 +61,12 @@ public class Venda implements Serializable{
 	@NotBlank (message = "Item Obrigatório")
 	private String item;
 	@Column(nullable = false)
-	@NotBlank (message = "Valor Obrigatório")
 	private float valor;
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	@NotNull(message = "Data de venda obrigatória" )
-	@DateTimeFormat(pattern = "yyyy-mm-dd")
-	private Date data;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Calendar data;
 	@ManyToOne
 	@JsonManagedReference
 	@NotNull(message = "Vendedor é obrigatório")
@@ -84,15 +88,16 @@ public class Venda implements Serializable{
 		this.valor = valor;
 	}
 
-	public Date getData() {
+	
+	public @NotNull(message = "Data de venda obrigatória") Calendar getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(Calendar data) {
 		this.data = data;
 	}
 
-	public Venda(String item, float valor, Date data) {
+	public Venda(String item, float valor, @NotNull(message = "Data de venda obrigatória") Calendar data) {
 		super();
 		this.item = item;
 		this.valor = valor;

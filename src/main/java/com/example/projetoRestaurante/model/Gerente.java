@@ -8,6 +8,8 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -21,28 +23,23 @@ import org.hibernate.validator.constraints.Length;
 import com.example.projetoRestaurante.anotation.SenhaValidation;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Gerente extends Funcionario{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Column(nullable = false, length = 40, unique = true)
+	@Column(nullable = false)
 	@NotBlank(message = "usuário deve ser preenchido")
 	@Length(max = 20, message = "Usuário deve ter no máximo 20 caracteres")
 	private String usuario;
-	@Column(nullable = false, length = 10)
-	@SenhaValidation(messege = "A senha deve contrar números, letras maiusculas e minusculas")
+	@Column(nullable = false)
+	//@SenhaValidation(messege = "A senha deve contrar números, letras maiusculas e minusculas")
 	@Length(min = 10, message = "Senha deve ter no mínimo 10 caracteres")
 	private String senha;
-	@Embedded
-	@OneToOne
-	@Valid
-	@NotNull(message = "funcionário obrigatório")
-	private Funcionario funcionario;
-	@JsonBackReference
+	@ElementCollection(fetch = FetchType.EAGER)
 	@OneToMany(mappedBy = "gerente")
-	@Valid
 	private List <Estoque> estoque = new ArrayList<>();
 	
 	
@@ -52,24 +49,28 @@ public class Gerente extends Funcionario{
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
+	
+	
 	public String getSenha() {
 		return senha;
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	public Funcionario getFuncionario() {
-		return funcionario;
-	}
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
-	}
-	public Gerente(String usuario, String senha, Funcionario funcionario) {
+	
+	public Gerente(@NotBlank(message = "usuário deve ser preenchido") @Length(max = 20, message = "Usuário deve ter no máximo 20 caracteres") String usuario, @Length(min = 10, message = "Senha deve ter no mínimo 10 caracteres") String senha) {
 		super();
 		this.usuario = usuario;
 		this.senha = senha;
-		this.funcionario = funcionario;
 	}
+	public Gerente() {
+		// TODO Auto-generated constructor stub
+	}
+	public Gerente(Long id, String nome, String cpf, String telefone) {
+		super(id, nome, cpf, telefone);
+		// TODO Auto-generated constructor stub
+	}
+	
 	public List <Estoque> getEstoque() {
 		return estoque;
 	}

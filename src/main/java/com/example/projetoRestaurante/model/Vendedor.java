@@ -8,6 +8,8 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -27,17 +29,12 @@ public class Vendedor extends Funcionario  {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Column(nullable = false, length = 200, updatable = true)
-	@NotBlank(message = "Salário deve ser obrigatório")
 	private float salario;
 	@JsonIgnore
 	@OneToMany(mappedBy = "vendedor")
-	@JsonBackReference
+	@ElementCollection(fetch = FetchType.EAGER)
 	@Valid
 	private List <Venda> venda = new ArrayList<>();
-	@ManyToOne
-	@JsonManagedReference
-	@Valid
-	private Funcionario funcionario;
 
 	public float getSalario() {
 		return salario;
@@ -47,18 +44,17 @@ public class Vendedor extends Funcionario  {
 		this.salario = salario;
 	}
 
-	public Funcionario getFuncionario() {
-		return funcionario;
-	}
-
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
-	}
+	
 
 	public Vendedor(Long id, String nome, String cpf, String telefone, float salario, Funcionario funcionario) {
 		super(id, nome, cpf, telefone);
 		this.salario = salario;
-		this.funcionario = funcionario;
+	}
+
+
+
+	public Vendedor() {
+		
 	}
 
 	public List <Venda> getVenda() {

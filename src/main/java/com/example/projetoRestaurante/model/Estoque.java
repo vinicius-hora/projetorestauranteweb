@@ -25,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class Estoque implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
+	@Column(name = "id_estoque")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Override
@@ -57,16 +58,14 @@ public class Estoque implements Serializable{
 	@Length(max = 50, message = "deve ter no máximo 50 caractéres")
 	private String nota_fiscal;
 	@Column(nullable = false)
-	@NotBlank(message = "Valor é obrigatório")
 	private float valor;
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	@NotNull(message = "Datade compra é obrigatório")
-	@DateTimeFormat(pattern = "yyyy-mm-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date data;
 	@ManyToOne
 	@JsonManagedReference
-	@Valid
 	private Gerente gerente;
 	
 	

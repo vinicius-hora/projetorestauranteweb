@@ -11,6 +11,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
@@ -22,10 +25,12 @@ import org.hibernate.validator.constraints.br.CPF;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonValueInstantiator;
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Funcionario implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_funcionario")
 	private Long id;
 	@Column(nullable = false, length = 100)
 	@NotBlank (message = "Nome Obrigatório")
@@ -36,20 +41,27 @@ public abstract class Funcionario implements Serializable{
 	private String cpf;
 	@Column(nullable = false, length = 14)
 	@NotBlank (message = "Telefone Obrigatório")
-	@Length(min=13, max=14, message = "Telefone de ser (99)9999-9999 ou (99)99999-9999")
+	@Length(min=11, max=14, message = "Telefone de ser (99)9999-9999 ou (99)99999-9999")
 	private String telefone;
 	@ElementCollection(fetch = FetchType.EAGER)
 	@OneToMany
 	@JsonIgnore
 	@Valid
 	private List<Vendedor> vendedor = new ArrayList<>();
+	@ElementCollection(fetch = FetchType.EAGER)
 	@JsonIgnore
-	@OneToOne (mappedBy = "funcionario")
+	@OneToMany
 	@Valid
-	private Gerente gerente;
+	private List<Gerente> gerente = new ArrayList<>();
 	
 	
 	
+	public List<Gerente> getGerente() {
+		return gerente;
+	}
+	public void setGerente(List<Gerente> gerente) {
+		this.gerente = gerente;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -93,7 +105,7 @@ public abstract class Funcionario implements Serializable{
 		this.telefone = telefone;
 	}
 	public Funcionario() {
-		// TODO Auto-generated constructor stub
+	
 	}
 	public List<Vendedor> getVendedor() {
 		return vendedor;
@@ -101,17 +113,7 @@ public abstract class Funcionario implements Serializable{
 	public void setVendedor(List<Vendedor> vendedor) {
 		this.vendedor = vendedor;
 	}
-	public Gerente getGerente() {
-		return gerente;
-	}
-	public void setGerente(Gerente gerente) {
-		this.gerente = gerente;
-	}
 
-	
-
-	
-	
 	
 
 }
