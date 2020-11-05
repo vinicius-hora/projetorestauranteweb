@@ -1,6 +1,7 @@
 package com.example.projetoRestaurante.model;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -63,7 +64,7 @@ public class Estoque implements Serializable{
 	@Temporal(TemporalType.DATE)
 	@NotNull(message = "Datade compra é obrigatório")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date data;
+	private Calendar data;
 	@ManyToOne
 	@JsonManagedReference
 	private Gerente gerente;
@@ -87,13 +88,13 @@ public class Estoque implements Serializable{
 	public void setValor(float valor) {
 		this.valor = valor;
 	}
-	public Date getData() {
+	public @NotNull(message = "Datade compra é obrigatório") Calendar getData() {
 		return data;
 	}
-	public void setData(Date data) {
+	public void setData(@NotNull(message = "Datade compra é obrigatório") Calendar data) {
 		this.data = data;
 	}
-	public Estoque(String item, String nota_fiscal, float valor, Date data) {
+	public Estoque(String item, String nota_fiscal, float valor, @NotNull(message = "Datade compra é obrigatório") Calendar data) {
 		super();
 		this.item = item;
 		this.nota_fiscal = nota_fiscal;
