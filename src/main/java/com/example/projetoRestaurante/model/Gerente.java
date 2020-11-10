@@ -22,9 +22,12 @@ import org.hibernate.validator.constraints.Length;
 
 import com.example.projetoRestaurante.anotation.SenhaValidation;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
+@JsonIgnoreProperties(value = "senha", allowGetters = false, allowSetters = true)
 public class Gerente extends Funcionario{
 	/**
 	 * 
@@ -32,7 +35,7 @@ public class Gerente extends Funcionario{
 	private static final long serialVersionUID = 1L;
 	@Column(nullable = false)
 	@NotBlank(message = "usuário deve ser preenchido")
-	@Length(max = 20, message = "Usuário deve ter no máximo 20 caracteres")
+	@Length(max = 50, message = "Usuário deve ter no máximo 20 caracteres")
 	private String usuario;
 	@Column(nullable = false)
 	//@SenhaValidation(messege = "A senha deve contrar números, letras maiusculas e minusculas")
@@ -40,6 +43,7 @@ public class Gerente extends Funcionario{
 	private String senha;
 	@ElementCollection(fetch = FetchType.EAGER)
 	@OneToMany(mappedBy = "gerente")
+	@JsonIgnore
 	private List <Estoque> estoque = new ArrayList<>();
 	
 	
@@ -58,7 +62,7 @@ public class Gerente extends Funcionario{
 		this.senha = senha;
 	}
 	
-	public Gerente(@NotBlank(message = "usuário deve ser preenchido") @Length(max = 20, message = "Usuário deve ter no máximo 20 caracteres") String usuario, @Length(min = 10, message = "Senha deve ter no mínimo 10 caracteres") String senha) {
+	public Gerente(String usuario,  String senha) {
 		super();
 		this.usuario = usuario;
 		this.senha = senha;

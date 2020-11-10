@@ -33,7 +33,6 @@ public class Vendedor extends Funcionario  {
 	@JsonIgnore
 	@OneToMany(mappedBy = "vendedor")
 	@ElementCollection(fetch = FetchType.EAGER)
-	@Valid
 	private List <Venda> venda = new ArrayList<>();
 
 	public float getSalario() {

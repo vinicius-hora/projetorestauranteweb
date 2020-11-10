@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.example.projetoRestaurante.model.Estoque;
 import com.example.projetoRestaurante.model.Gerente;
 import com.example.projetoRestaurante.model.Venda;
 import com.example.projetoRestaurante.model.Vendedor;
@@ -58,10 +59,19 @@ public class ProjetoRestauranteApplication implements CommandLineRunner {
 		Calendar Data = Calendar.getInstance();
 		ven1.setData(Data);
 		ven1.setVendedor(v1);
+		//estoque
+		Estoque est1 = new Estoque();
+		est1.setValor(100);
+		est1.setItem("Temperos");
+		est1.setNota_fiscal("28457455");
+		est1.setData(Data);
+		est1.setGerente(g1);
+		
 		
 		gerenteRepo.save(g1);
 		vendedorRepo.save(v1);
 		vendaRepo.save(ven1);
+		estoqueRepo.save(est1);
 		
 		
 		

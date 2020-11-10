@@ -9,6 +9,6 @@ import com.example.projetoRestaurante.model.Gerente;
 @Repository
 public interface GerenteRepository extends JpaRepository<Gerente, Long> {
 	
-	public Gerente findByGerenteNome (String Nome);
+	public Gerente findByNome (String Nome);
 
 }

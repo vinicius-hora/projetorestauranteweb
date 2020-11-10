@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-
+import com.example.projetoRestaurante.model.Gerente;
 import com.example.projetoRestaurante.model.Vendedor;
 
 import com.example.projetoRestaurante.repository.VendedorRepository;
@@ -61,6 +61,15 @@ public class VendedorService {
 			
 		} catch (Exception e) {
 			throw new RuntimeException("Falha ao atualizar login e/ou Senha.");
+		}
+	}
+	
+	public void delete (Long id) {
+		Vendedor obj = findById(id);
+		try {
+			repo.delete(obj);
+		} catch (Exception e) {
+			throw new RuntimeException("Falha ao deletar Gerente");
 		}
 	}
 	

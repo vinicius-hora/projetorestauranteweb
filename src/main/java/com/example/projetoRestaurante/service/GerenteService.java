@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-
+import com.example.projetoRestaurante.model.Estoque;
 import com.example.projetoRestaurante.model.Gerente;
 
 import com.example.projetoRestaurante.repository.GerenteRepository;
@@ -56,6 +56,7 @@ public class GerenteService {
 		try {
 			ge.setNome(obj.getNome());
 			ge.setTelefone(obj.getTelefone());
+			ge.setCpf(obj.getCpf());
 			ge.setUsuario(obj.getUsuario());
 			ge.setSenha(obj.getSenha());
 			return repo.save(ge);
@@ -65,5 +66,13 @@ public class GerenteService {
 		}
 	}
 	
+	public void delete (Long id) {
+		Gerente obj = findById(id);
+		try {
+			repo.delete(obj);
+		} catch (Exception e) {
+			throw new RuntimeException("Falha ao deletar Gerente");
+		}
+	}
 
 }

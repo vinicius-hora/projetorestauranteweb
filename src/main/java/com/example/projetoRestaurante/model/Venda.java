@@ -14,12 +14,15 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.ManyToAny;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.Entity;
@@ -61,14 +64,23 @@ public class Venda implements Serializable{
 	@NotBlank (message = "Item Obrigatório")
 	private String item;
 	@Column(nullable = false)
+	@Min(value = 0)
 	private float valor;
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	@NotNull(message = "Data de venda obrigatória" )
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Calendar data;
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	@ManyToOne
-	@JsonManagedReference
+	@JsonBackReference
 	@NotNull(message = "Vendedor é obrigatório")
 	@Valid
 	private Vendedor vendedor;
@@ -97,7 +109,7 @@ public class Venda implements Serializable{
 		this.data = data;
 	}
 
-	public Venda(String item, float valor, @NotNull(message = "Data de venda obrigatória") Calendar data) {
+	public Venda(String item, float valor, Calendar data) {
 		super();
 		this.item = item;
 		this.valor = valor;

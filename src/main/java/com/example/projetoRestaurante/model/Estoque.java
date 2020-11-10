@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -21,6 +23,8 @@ import org.hibernate.annotations.ManyToAny;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 public class Estoque implements Serializable{
@@ -59,14 +63,22 @@ public class Estoque implements Serializable{
 	@Length(max = 50, message = "deve ter no máximo 50 caractéres")
 	private String nota_fiscal;
 	@Column(nullable = false)
+	@Min(value = 0)
 	private float valor;
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	@NotNull(message = "Datade compra é obrigatório")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Calendar data;
 	@ManyToOne
-	@JsonManagedReference
+	@JsonBackReference
 	private Gerente gerente;
 	
 	
@@ -100,6 +112,15 @@ public class Estoque implements Serializable{
 		this.nota_fiscal = nota_fiscal;
 		this.valor = valor;
 		this.data = data;
+	}
+	public Estoque() {
+		// TODO Auto-generated constructor stub
+	}
+	public Gerente getGerente() {
+		return gerente;
+	}
+	public void setGerente(Gerente gerente) {
+		this.gerente = gerente;
 	}
 	
 	
