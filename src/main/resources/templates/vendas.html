@@ -1,0 +1,34 @@
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="~{fragmentos:: imports-css(title='Pizzaria')}">
+		<meta charset="UTF-8">
+		<title>...</title>
+	</head>
+	<body>
+		<div th:replace="~{fragmentos:: menu(index='vendas')}">
+		</div>
+		<div class="container">
+			<div class="card">
+			  <div class="card-body">
+			   	<h3>Vendas realizadas
+			  		<a class="btn btn-primary float-right" th:href="@{~/vendas/venda}" role="button">Nova venda</a>
+			  	</h3>
+			  </div>
+			</div>
+			<div class="card" th:each="venda: ${vendas}">
+			  <div class="card-body">
+			  	<h5 class="card-title" th:text="${venda.item}"></h5>
+			  </div>
+			  	<div class="card-text">
+			  		<span>Valor: </span>
+			  		<span th:text="${venda.valor}"></span>
+			  		<span th:text="${venda.data}"></span>
+				</div>
+				<div class="card-body">
+				    <a class="btn btn-danger float-left" th:href="@{'~/vendas/'+${venda.id}+'/deletar'}" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+				</div>
+			</div>
+		<div th:replace="~{fragmentos:: imports-js}">
+		</div>
+	
+	</body>
+</html>

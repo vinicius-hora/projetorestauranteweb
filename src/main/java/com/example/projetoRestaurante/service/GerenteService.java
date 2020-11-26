@@ -3,11 +3,15 @@ package com.example.projetoRestaurante.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.example.projetoRestaurante.exception.NotFoundException;
 import com.example.projetoRestaurante.model.Estoque;
 import com.example.projetoRestaurante.model.Gerente;
 
@@ -35,7 +39,7 @@ public class GerenteService {
 	public Gerente findById(Long id) {
 		Optional<Gerente> result = repo.findById(id);
 		if(result.isEmpty()) {
-			throw new RuntimeException("Funcionario não encontrado.");
+			throw new NotFoundException("Funcionario não encontrado.");
 		}
 		return result.get();
 	}
@@ -45,7 +49,14 @@ public class GerenteService {
 			return repo.save(ge);
 		}
 		catch (Exception e) {
-			throw new RuntimeException("Falha ao salvar funcionario.");
+			Throwable t = e;
+			while(t.getCause() != null) {
+				t = t.getCause();
+				if(t instanceof ConstraintViolationException) {
+					throw((ConstraintViolationException)t);
+				}
+			}
+			throw new RuntimeException("Falha ao atualizar atualizar dados");
 		}
 	}
 	
@@ -62,6 +73,13 @@ public class GerenteService {
 			return repo.save(ge);
 			
 		} catch (Exception e) {
+			Throwable t = e;
+			while(t.getCause() != null) {
+				t = t.getCause();
+				if(t instanceof ConstraintViolationException) {
+					throw((ConstraintViolationException)t);
+				}
+			}
 			throw new RuntimeException("Falha ao atualizar atualizar dados");
 		}
 	}

@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-
+import com.example.projetoRestaurante.exception.NotFoundException;
 import com.example.projetoRestaurante.model.Venda;
 
 import com.example.projetoRestaurante.repository.VendaRepository;
@@ -36,7 +36,7 @@ public class VendaService {
 	public Venda findById(Long id) {
 		Optional<Venda> result = repo.findById(id);
 		if(result.isEmpty()) {
-			throw new RuntimeException("Venda não encontrada.");
+			throw new NotFoundException("Venda não encontrada.");
 		}
 		return result.get();
 	}

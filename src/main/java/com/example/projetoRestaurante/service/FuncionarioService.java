@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-
+import com.example.projetoRestaurante.exception.NotFoundException;
 import com.example.projetoRestaurante.model.Funcionario;
 
 import com.example.projetoRestaurante.repository.FuncionarioRepository;
@@ -35,7 +35,7 @@ public class FuncionarioService {
 	public Funcionario findById(Long id) {
 		Optional<Funcionario> result = repo.findById(id);
 		if(result.isEmpty()) {
-			throw new RuntimeException("Funcionario não encontrado.");
+			throw new NotFoundException("Funcionario não encontrado.");
 		}
 		return result.get();
 	}

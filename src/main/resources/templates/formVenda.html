@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="~{fragmentos:: imports-css(title='Pizzaria')}">
+		<meta charset="UTF-8">
+		<title>...</title>
+	</head>
+	<body>
+		<div th:replace="~{fragmentos:: menu(index='')}">
+		</div>
+		<div class="container" style=" width: 50%; margin-top: 25px">
+			<div class="card-header">
+			   	<h3>Vendas realizadas
+			  		<a class="btn btn-primary float-right" th:href="@{~/vendas}" role="button">Voltar</a>
+			  	</h3>
+			  </div>
+			  Erros (fragmento)
+			  <form th:object="${venda}" th:action="@{~/vendas/venda/{id}(id=${venda.id})}" method="post" class="card-body">
+				<div class="form-row">
+					<div class="form-group">
+						<label for="item">Item: </label>
+						<input th:field="*{item}" type="text" class="form-control" placeholder="Item" required="required" maxlength="100">
+				   		<br>
+				   		<label for="item">Valor: </label>
+				   		<input th:field="*{valor}" type="number" class="form-control"  min="0" required="required">
+						
+					</div>
+				   
+				</div>
+			<div class="card-footer">
+				<input type="submit" class="btn btn-success" value="salvar">
+			</div>
+		</form>
+		</div>
+		<div th:replace="~{fragmentos:: imports-js}">
+		</div>
+		
+		
+	
+	</body>
+</html>

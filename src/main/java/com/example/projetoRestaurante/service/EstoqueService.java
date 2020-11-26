@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.example.projetoRestaurante.exception.NotFoundException;
 import com.example.projetoRestaurante.model.Estoque;
 
 import com.example.projetoRestaurante.repository.EstoqueRepository;
@@ -35,7 +36,7 @@ public class EstoqueService {
 	public Estoque findById(Long id) {
 		Optional<Estoque> result = repo.findById(id);
 		if(result.isEmpty()) {
-			throw new RuntimeException("Estoque não encontrado.");
+			throw new NotFoundException("Estoque não encontrado.");
 		}
 		return result.get();
 	}

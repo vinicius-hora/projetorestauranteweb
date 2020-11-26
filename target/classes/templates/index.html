@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="~{fragmentos:: imports-css(title='Pizzaria')}">
+		<meta charset="UTF-8">
+		<title>...</title>
+	</head>
+	<body>
+		<div th:replace="~{fragmentos:: menu(index='')}">
+		</div>
+		<div class="container" align="center">
+			<img th:src="@{imagens/fundo_inicio.jpg}" style="opacity: 20%" width="100%">
+		</div>
+		<div th:replace="~{fragmentos:: imports-js}">
+		</div>
+	
+	</body>
+</html>
