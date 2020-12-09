@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="~{fragmentos:: imports-css(title='Pizzaria')}">
+		<meta charset="UTF-8">
+		<title>...</title>
+	</head>
+	<body>
+		<div th:replace="~{fragmentos:: menu(index='')}">
+		</div>
+		<div class="container" style=" width: 50%; margin-top: 25px">
+			<div class="card-header">
+			   	<h3>Cadastro de Gerente
+			  		<a class="btn btn-primary float-right" th:href="@{~/gerentes}" role="button">Voltar</a>
+			  	</h3>
+			  </div>
+			  Erros (fragmento)
+			  <form th:object="${gerente}" th:action="@{~/gerentes/gerente/{id}(id=${gerente.id})}" method="post" class="card-body">
+				<div class="form-row">
+					<div class="form-group">
+						<label for="item">Nome: </label>
+						<input th:field="*{nome}" type="text" class="form-control" placeholder="nome" required="required" maxlength="100">
+				   		<br>
+				   		<label for="item">CPF: </label>
+						<input th:field="*{cpf}" type="text" class="form-control" placeholder="000.000.000-00" required="required" maxlength="100">
+				   		<br>
+				   		<label for="item">Telefone: </label>
+						<input th:field="*{telefone}" type="number" class="form-control" placeholder="(00)000000000" required="required" maxlength="100">
+				   		<br>
+				   		<label for="item">Usuário: </label>
+				   		<input th:field="*{usuario}" type="text" class="form-control"  placeholder="usuario" required="required">
+						<br>
+				   		<label for="item">Senha: </label>
+				   		<input th:field="*{senha}" type="password" class="form-control" required="required">
+				   		<br>
+				   		
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group">
+						<label>Permissões:</label>
+					</div>
+						<div class="form-check form-check-inline" th:each="permissao,i : ${permissao}">
+						 	<input class="form-check-input" type="checkbox" th:name="${'permissoes['+i.index+'].id'}" th:value="${permissao.id}" th:checked="${#lists.contains(gerente.permissoes, permissao)? 'checked' : false}" >
+						 	<label class="form-check-label" th:text="${permissao.nome}">t</label>
+						</div>
+										
+					
+				
+				</div>
+			<div class="form-group">
+				<div class="card-footer">
+					<input type="submit" class="btn btn-success" value="salvar">
+				</div>
+			</div>
+		</form>
+		</div>
+		<div th:replace="~{fragmentos:: imports-js}">
+		</div>
+		
+		
+	
+	</body>
+</html>

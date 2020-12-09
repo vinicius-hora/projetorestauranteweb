@@ -14,10 +14,12 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
@@ -53,6 +55,7 @@ public abstract class Funcionario implements Serializable{
 	@OneToMany
 	@Valid
 	private List<Gerente> gerente = new ArrayList<>();
+	
 	
 	
 	
@@ -113,7 +116,7 @@ public abstract class Funcionario implements Serializable{
 	public void setVendedor(List<Vendedor> vendedor) {
 		this.vendedor = vendedor;
 	}
-
+	
 	
 
 }

@@ -11,4 +11,6 @@ public interface GerenteRepository extends JpaRepository<Gerente, Long> {
 	
 	public Gerente findByNome (String Nome);
 
+	public Gerente findByUsuario(String usuario);
+
 }

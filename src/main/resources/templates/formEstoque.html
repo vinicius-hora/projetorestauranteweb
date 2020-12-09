@@ -9,23 +9,22 @@
 		</div>
 		<div class="container" style=" width: 50%; margin-top: 25px">
 			<div class="card-header">
-			   	<h3>Vendas realizadas
-			  		<a class="btn btn-primary float-right" th:href="@{~/vendas}" role="button">Voltar</a>
+			   	<h3>Estoques Cadastrados
+			  		<a class="btn btn-primary float-right" th:href="@{~/estoques}" role="button">Voltar</a>
 			  	</h3>
 			  </div>
 			  Erros (fragmento)
-			  <form th:object="${venda}" th:action="@{~/vendas/venda/{id}(id=${venda.id})}" method="post" class="card-body">
+			  <form th:object="${estoque}" th:action="@{~/estoques/estoque/{id}(id=${estoque.id})}" method="post" class="card-body">
 				<div class="form-row">
 					<div class="form-group">
-						<label> Vendedor:</label>
-						<select class="form-control" th:field="*{vendedor.id}">
-							<option th:each="vendedor : ${vendedor}" th:text="${vendedor.nome}" th:value="${vendedor.id}"></option>
-						</select>
 						<label for="item">Item: </label>
 						<input th:field="*{item}" type="text" class="form-control" placeholder="Item" required="required" maxlength="100">
 				   		<br>
 				   		<label for="item">Valor: </label>
 				   		<input th:field="*{valor}" type="number" class="form-control"  min="0" required="required">
+				   		<br>
+				   		<label for="item">Nota Fiscal: </label>
+				   		<input th:field="*{nota_fiscal}" type="text" class="form-control"  required="required">
 						
 					</div>
 				   

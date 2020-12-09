@@ -11,12 +11,15 @@ import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderColumn;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -45,6 +48,11 @@ public class Gerente extends Funcionario{
 	@OneToMany(mappedBy = "gerente")
 	@JsonIgnore
 	private List <Estoque> estoque = new ArrayList<>();
+	@OrderColumn
+	@ManyToMany(fetch = FetchType.EAGER)
+	@Size(min = 1, message = "Deve ter ao menos uma permissão.")
+	private List<Permissao> permissoes = new ArrayList<>();
+	
 	
 	
 	public String getUsuario() {
@@ -81,6 +89,16 @@ public class Gerente extends Funcionario{
 	public void setEstoque(List <Estoque> estoque) {
 		this.estoque = estoque;
 	}
+	public List<Permissao> getPermissoes() {
+		return permissoes;
+	}
+	public void setPermissoes(List<Permissao> permissoes) {
+		this.permissoes = permissoes;
+	}
+	
+	
+
+	
 
 	
 	

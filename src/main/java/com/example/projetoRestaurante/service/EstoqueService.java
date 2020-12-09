@@ -1,7 +1,11 @@
 package com.example.projetoRestaurante.service;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
+
+import javax.validation.constraints.NotNull;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +23,7 @@ import com.example.projetoRestaurante.repository.EstoqueRepository;
 public class EstoqueService {
 	
 	
+	private static final @NotNull(message = "Datade compra é obrigatório") Calendar Data = null;
 	@Autowired
 	private EstoqueRepository repo;
 	
@@ -43,6 +48,7 @@ public class EstoqueService {
 	
 	public Estoque save (Estoque es) {
 		try {
+			es.setData(Calendar.getInstance());
 			return repo.save(es);
 		}
 		catch (Exception e) {

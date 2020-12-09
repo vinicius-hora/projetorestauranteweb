@@ -2,19 +2,23 @@ package com.example.projetoRestaurante;
 
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.example.projetoRestaurante.model.Estoque;
 import com.example.projetoRestaurante.model.Gerente;
+import com.example.projetoRestaurante.model.Permissao;
 import com.example.projetoRestaurante.model.Venda;
 import com.example.projetoRestaurante.model.Vendedor;
 import com.example.projetoRestaurante.repository.EstoqueRepository;
 import com.example.projetoRestaurante.repository.FuncionarioRepository;
 import com.example.projetoRestaurante.repository.GerenteRepository;
+import com.example.projetoRestaurante.repository.PermissaoRepository;
 import com.example.projetoRestaurante.repository.VendaRepository;
 import com.example.projetoRestaurante.repository.VendedorRepository;
 
@@ -32,6 +36,9 @@ public class ProjetoRestauranteApplication implements CommandLineRunner {
 	@Autowired
 	private VendedorRepository vendedorRepo;
 	
+	@Autowired
+	private PermissaoRepository permissaoRepo;
+	
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProjetoRestauranteApplication.class, args);
@@ -39,13 +46,18 @@ public class ProjetoRestauranteApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		//permissão
+		Permissao p1 = new Permissao();
+		p1.setNome("ADMIN");
+		permissaoRepo.saveAll(List.of(p1));
 		//gerente
 		Gerente g1 = new Gerente();
 		g1.setCpf("07680544514");
 		g1.setNome("Marcos");
-		g1.setUsuario("useravbas");
-		g1.setSenha("mArcos0022");
+		g1.setUsuario("administrador");
+		g1.setSenha(new BCryptPasswordEncoder().encode("0123456789"));
 		g1.setTelefone("22999999988");
+		g1.setPermissoes(List.of(p1));
 		//vendedor
 		Vendedor v1 = new Vendedor();
 		v1.setCpf("97581918459");

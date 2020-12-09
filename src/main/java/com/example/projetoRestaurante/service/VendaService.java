@@ -1,5 +1,6 @@
 package com.example.projetoRestaurante.service;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +20,7 @@ import com.example.projetoRestaurante.repository.VendaRepository;
 public class VendaService {
 	
 	
+	private static final Calendar Data = null;
 	@Autowired
 	private VendaRepository repo;
 	
@@ -33,6 +35,9 @@ public class VendaService {
 		return repo.findAll();
 	}
 	
+	public List<Venda> findAll (Long vendedorID){
+		return repo.findAll();
+	}
 	public Venda findById(Long id) {
 		Optional<Venda> result = repo.findById(id);
 		if(result.isEmpty()) {
@@ -43,6 +48,7 @@ public class VendaService {
 	
 	public Venda save (Venda ven) {
 		try {
+			ven.setData(Calendar.getInstance());
 			return repo.save(ven);
 		}
 		catch (Exception e) {
