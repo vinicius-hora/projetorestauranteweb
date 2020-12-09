@@ -1,0 +1,40 @@
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="~{fragmentos:: imports-css(title='Pizzaria')}">
+		<meta charset="UTF-8">
+		<title>...</title>
+	</head>
+	<body>
+		<div th:replace="~{fragmentos:: menu(index='estoques')}">
+		</div>
+		<div class="container">
+			<div class="card">
+			  <div class="card-body">
+			   	<h3>Estoques Cadastrados
+			  		<a class="btn btn-primary float-right" th:href="@{~/estoques/estoque}" role="button">Cadastrar Estoque</a>
+			  	</h3>
+			  </div>
+			</div>
+			<div class="card" th:each="estoque: ${estoques}">
+			  <div class="card-body">
+			  	<h5 class="card-title" th:text="${estoque.item}"></h5>
+			  </div>
+			  	<div class="card-text" style="margin: 1rem">
+			  		<span>Valor: </span>
+			  		<span th:text="${estoque.valor}"></span>
+			  		<br>
+			  		<span>Nota Fiscal: </span>
+			  		<span th:text="${estoque.nota_fiscal}"></span>
+			  		<br>
+			  		<span>Data: </span>
+			  		<span th:text="${estoque.data.get(5)+'/'+(estoque.data.get(2)+1)+'/'+estoque.data.get(1)}"></span>
+			  		
+				</div>
+				<div class="card-body">
+				    <a class="btn btn-danger float-left" th:href="@{'~/estoques/'+${estoque.id}+'/deletar'}" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+				</div>
+			</div>
+		<div th:replace="~{fragmentos:: imports-js}">
+		</div>
+	
+	</body>
+</html>
