@@ -19,7 +19,7 @@ import com.example.projetoRestaurante.model.Gerente;
 import com.example.projetoRestaurante.model.Vendedor;
 import com.example.projetoRestaurante.service.VendedorService;
 
-@RestController
+@RestController("VendedorApi")
 @RequestMapping(path = "/apirest/vendedores")
 public class VendedorApiController {
 	
