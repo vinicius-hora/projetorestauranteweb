@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.projetoRestaurante.model.Estoque;
 import com.example.projetoRestaurante.service.EstoqueService;
 
-@RestController("EstoqueApi")
+@RestController
 @RequestMapping(path = "/apirest/estoques")
 public class EstoqueApiController {
 	

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.projetoRestaurante.model.Gerente;
 import com.example.projetoRestaurante.service.GerenteService;
 
-@RestController("GerenteApi")
+@RestController
 @RequestMapping(path = "/apirest/gerentes")
 public class GerenteApiController {
 	@Autowired

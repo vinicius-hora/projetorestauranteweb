@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.projetoRestaurante.service.FuncionarioService;
 
-@RestController("FuncionarioApi")
+@RestController
 @RequestMapping(path = "/apirest/funcionarios")
 public class FuncionarioApiController {
 	@Autowired

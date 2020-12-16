@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.projetoRestaurante.model.Venda;
 import com.example.projetoRestaurante.service.VendaService;
 
-@RestController("VendaApi")
+@RestController
 @RequestMapping(path = "/apirest/vendas")
 public class VendaApiController {
 	
