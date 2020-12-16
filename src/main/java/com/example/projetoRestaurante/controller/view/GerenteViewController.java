@@ -14,12 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.projetoRestaurante.model.Gerente;
-import com.example.projetoRestaurante.model.Venda;
-import com.example.projetoRestaurante.model.Vendedor;
+
 import com.example.projetoRestaurante.repository.PermissaoRepository;
 import com.example.projetoRestaurante.service.GerenteService;
-import com.example.projetoRestaurante.service.VendaService;
-import com.example.projetoRestaurante.service.VendedorService;
 
 @Controller
 @RequestMapping(path = "/gerentes")

@@ -16,12 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.projetoRestaurante.model.Estoque;
-import com.example.projetoRestaurante.model.Funcionario;
-import com.example.projetoRestaurante.model.Gerente;
+
 import com.example.projetoRestaurante.service.EstoqueService;
-import com.example.projetoRestaurante.service.FuncionarioService;
+
 import com.example.projetoRestaurante.service.GerenteService;
-import com.example.projetoRestaurante.service.VendedorService;
+
 
 @Controller
 @RequestMapping(path = "/estoques")
@@ -30,8 +29,6 @@ public class EstoqueViewController {
 	private EstoqueService service;
 	@Autowired
 	private GerenteService gerenteService;
-	@Autowired
-	private FuncionarioService funcionarioService;
 	@GetMapping
 	public String getAll(Model model) {
 		model.addAttribute("estoques", service.findAll());

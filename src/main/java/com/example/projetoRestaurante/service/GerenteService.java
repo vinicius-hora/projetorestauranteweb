@@ -3,7 +3,7 @@ package com.example.projetoRestaurante.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.ConstraintViolation;
+
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.projetoRestaurante.exception.NotFoundException;
-import com.example.projetoRestaurante.model.Estoque;
+
 import com.example.projetoRestaurante.model.Gerente;
 import com.example.projetoRestaurante.model.Permissao;
 import com.example.projetoRestaurante.repository.GerenteRepository;

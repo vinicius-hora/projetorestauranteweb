@@ -12,10 +12,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.projetoRestaurante.model.Funcionario;
+
 import com.example.projetoRestaurante.model.Gerente;
 import com.example.projetoRestaurante.model.Permissao;
-import com.example.projetoRestaurante.repository.FuncionarioRepository;
 import com.example.projetoRestaurante.repository.GerenteRepository;
 
 @Service

@@ -11,7 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.projetoRestaurante.exception.NotFoundException;
-import com.example.projetoRestaurante.model.Gerente;
+
 import com.example.projetoRestaurante.model.Vendedor;
 
 import com.example.projetoRestaurante.repository.VendedorRepository;

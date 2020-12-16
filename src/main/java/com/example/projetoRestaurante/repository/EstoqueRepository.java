@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.projetoRestaurante.model.Estoque;
-import com.example.projetoRestaurante.model.Venda;
+
 
 
 @Repository
