@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.projetoRestaurante.model.Estoque;
 import com.example.projetoRestaurante.model.Venda;
 import com.example.projetoRestaurante.service.VendaService;
 
